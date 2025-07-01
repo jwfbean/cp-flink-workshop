@@ -1,0 +1,12 @@
+{
+  "doc": "FlinkSQL Output Topic",
+  "fields": [
+    {
+      "name": "size",
+      "type": "int"
+    }
+  ],
+  "name": "sampleRecord",
+  "namespace": "io.confluent.cpflink",
+  "type": "record"
+}
