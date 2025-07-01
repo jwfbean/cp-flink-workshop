@@ -31,7 +31,7 @@ Next, install *Confluent Control Center*, *Confluent Server*, and *Connect*:
 Add the Confluent repository and install *Confluent for Kubernetes*:
 
 ```
-kubectl apply exercise-0/c3ng.yaml
+kubectl apply -f ./exercise-0/c3ng.yaml
 ```
 
 To monitor the installation you can use:
