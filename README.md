@@ -77,7 +77,7 @@ In a few minutes, Confluent Control Center should be happy with Flink. (TODO: co
 
 Create Kafka Topics for the rest of the exercise. We want to register schema for these topics:
 1. Create a topic for the Flink input. Call it `flink-input` and use the avro schema at [exercise-1/flink-input-value.avsc](exercise-1/flink-input-value.avsc)
-- Produce a sample message using [exercise-1/sample-message.json](exercise-1/sample-message.json)
+- Produce a sample message using [exercise-1/flink-input-message.json](exercise-1/flink-input-message.json)
 2. Create a topic for the Flink output. Call it `flink-output` and use the avro schema at [exercise-1/flink-output-value.avsc](exercise-1/flink-output-value.avsc)
 
 ## Exercise 1: CMF Web UI in Confluent Control Center
@@ -172,3 +172,12 @@ confluent flink statement create pipeline \
   --catalog kcat --flink-configuration ./stmt-config.json \
   --sql "INSERT INTO \`flink-output\` SELECT \`key\`, CAST(CHAR_LENGTH(val1) AS BIGINT) AS \`ecount\` FROM \`flink-input\` WHERE val1 IS NOT NULL;"
 ```
+While the statement is running, view the pod:
+```
+kubectl get pods
+```
+View the web UI:
+```
+confluent flink statement web-ui-forward pipeline --environment my-env
+```
+Bring up two windows in Confluent Control Center, pointing to the topic viewers for `flink-input` and `flink-output`. Produce messages to `flink-input`, and see the result in `flink-output`. Examine the statistics in the Flink Web UI as well.
