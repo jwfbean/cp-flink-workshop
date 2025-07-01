@@ -1,0 +1,94 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KRaftController
+metadata:
+  name: kraftcontroller
+  namespace: confluent
+spec:
+  dataVolumeCapacity: 10G # <-- REVERTED to dataVolumeCapacity as per CFK 3.0.0 CRDs
+  image:
+    application: confluentinc/cp-server:8.0.0
+    init: confluentinc/confluent-init-container:3.0.0
+  replicas: 1
+  dependencies:
+    metricsClient:
+      url: http://controlcenter-next-gen.confluent.svc.cluster.local:9090
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+  namespace: confluent
+spec:
+  dependencies:
+    kRaftController:
+      clusterRef:
+        name: kraftcontroller
+    metricsClient:
+      url: http://controlcenter-next-gen.confluent.svc.cluster.local:9090
+  dataVolumeCapacity: 10G # <-- REVERTED to dataVolumeCapacity as per CFK 3.0.0 CRDs
+  configOverrides:
+    server:
+      - "transaction.max.timeout.ms=4000000"
+  image:
+    application: confluentinc/cp-server:8.0.0
+    init: confluentinc/confluent-init-container:3.0.0
+  replicas: 3
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: SchemaRegistry
+metadata:
+  name: schemaregistry
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-schema-registry:8.0.0
+    init: confluentinc/confluent-init-container:3.0.0
+  dependencies: # Keep this, as SR still needs to connect to Kafka
+    kafka:
+      bootstrapEndpoint: kafka.confluent.svc.cluster.local:9092
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ControlCenter
+metadata:
+  name: controlcenter-next-gen
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-enterprise-control-center-next-gen:2.2.0
+    init: confluentinc/confluent-init-container:3.0.0
+  dataVolumeCapacity: 10Gi # This is correct as a direct child of spec
+  # pullSecretRef (if any) should be here, commented out if public images
+  dependencies:
+    # ... (keep your dependencies block as is)
+    prometheusClient:
+      url: http://controlcenter-next-gen.confluent.svc.cluster.local:9090
+    alertManagerClient:
+      url: http://controlcenter-next-gen.confluent.svc.cluster.local:9093
+    schemaRegistry:
+      url: http://schemaregistry.confluent.svc.cluster.local:8081
+    connect:
+    - name: connect
+      url: http://connect.confluent.svc.cluster.local:8083
+
+  externalAccess: # This block MOVED
+    type: loadBalancer
+    loadBalancer:
+      domain: mydomain.com
+      port: 9021
+  configOverrides: # This block MOVED
+    server:
+      - confluent.controlcenter.cmf.enable=true
+      - confluent.controlcenter.cmf.url=http://cmf-service.default.svc.cluster.local
+
+  services: 
+    prometheus:
+      image: confluentinc/cp-enterprise-prometheus:2.2.0
+      pvc:
+        storageClass:
+          name: "standard"
+        dataVolumeCapacity: 10Gi
+    alertmanager:
+      image: confluentinc/cp-enterprise-alertmanager:2.2.0
+---
