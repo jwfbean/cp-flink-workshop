@@ -1,0 +1,12 @@
+{
+  "doc": "CP Flink SQL Workshop - Source topic",
+  "fields": [
+    {
+      "name": "val1",
+      "type": "string"
+    }
+  ],
+  "name": "sampleRecord",
+  "namespace": "io.confluent.mynamespace",
+  "type": "record"
+}
