@@ -7,6 +7,6 @@
     }
   ],
   "name": "sampleRecord",
-  "namespace": "io.confluent.mynamespace",
+  "namespace": "io.confluent.cpflink",
   "type": "record"
 }
