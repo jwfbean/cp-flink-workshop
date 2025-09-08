@@ -1,11 +1,11 @@
 # cp-flink-workshop
 
-## Prerequisites
--Kind
--Docker
--Helm
+## Getting started hands-on with Confluent Platform for Apache Flink ("cp-flink")
 
-Getting started hands-on with Confluent Platform for Apache Flink ("cp-flink")
+### Prerequisites
+1. Kind
+1. Docker
+1. Helm
 
 This workshop provides a hands-on introduction to deploying and utilizing Confluent Platform for Apache Flink ("cp-flink") on a local Kubernetes cluster using Kind. Participants will learn to create Kubernetes instances for Kafka, Confluent Control Center, and Confluent Platform for Apache Flink. The session will then explore the Flink UI within Confluent Control Center for submitting and monitoring Flink applications. Finally, users will leverage the Confluent CLI to craft and execute Flink SQL statements, culminating in the creation of a data pipeline that reads from one Kafka topic, processes the data, and writes the results to another.
 
