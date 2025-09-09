@@ -188,8 +188,8 @@ Create a data pipeline that reads from `flink-input`, performs some basic proces
 confluent flink statement create pipeline \
   --environment my-env \
   --compute-pool jwfbean-pool \
-  --catalog kcat --flink-configuration ./stmt-config.json \
-  --sql "INSERT INTO \`flink-output\` SELECT \`key\`, CAST(CHAR_LENGTH(val1) AS BIGINT) AS \`ecount\` FROM \`flink-input\` WHERE val1 IS NOT NULL;"
+  --catalog kcat --flink-configuration \
+  --sql "INSERT INTO \`flink-output\` SELECT \`key\`, CAST(CHAR_LENGTH(val1) AS INT) AS \`ecount\` FROM \`flink-input\` WHERE val1 IS NOT NULL;"
 ```
 While the statement is running, view the pod:
 ```
