@@ -2,7 +2,7 @@
   "apiVersion": "cmf.confluent.io/v1",
   "kind": "ComputePool",
   "metadata": {
-    "name": "POOL_NAME"
+    "name": "my-pool"
   },
   "spec": {
     "type": "dedicated",
@@ -12,6 +12,8 @@
       "flinkConfiguration": {
         "metrics.reporter.prom.factory.class": "org.apache.flink.metrics.prometheus.PrometheusReporterFactory",
         "metrics.reporter.prom.port": "9249-9250",
+        "execution.checkpointing.interval": "90 s",
+        "state.backend.type": "hashmap",
         "taskmanager.numberOfTaskSlots": "4"
       },
       "jobManager": {
