@@ -90,11 +90,20 @@ Create Kafka Topics for the rest of the exercise. We want to register schema for
 
 ## Exercise 1: CMF Web UI in Confluent Control Center
 1. Create an environment using the default namespace.
-![Create a new environment](resources/New Environment.png)
+   
+![Create a new environment](resources/New%20Environment.png)
+
 3. Create an application in this environment.
 - Click `create an application`
 - Click the link to the docs and copy the deployment spec for the sample application
+
 3. Browse through the application instances (there's only one), events, and Apache Flink web UI for this application
+
+![Application instances](resources/Application%20Instances.png)
+
+![Event Log](resources/Event%20Log.png)
+
+![Flink UI](resources/Flink%20UI.png)
   
 4. Edit the deployment specification and re-deploy the application.
 - Now see a new application instance
