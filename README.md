@@ -76,7 +76,7 @@ Now install Confluent Manager for Apache Flink. We'll tell it we're running in n
 
 ```
 helm upgrade --install cmf \
-confluentinc/confluent-manager-for-apache-flink ---set cmf.sql.examples-catalog.enabled=true --set cmf.production=false
+confluentinc/confluent-manager-for-apache-flink --set cmf.sql.examples-catalog.enabled=true --set cmf.production=false
 ```
 
 In a few minutes, Confluent Control Center should be happy with Flink. (TODO: confirm that you don't need to restart C3)
