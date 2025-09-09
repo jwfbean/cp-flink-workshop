@@ -90,7 +90,7 @@ Create Kafka Topics for the rest of the exercise. We want to register schema for
 
 ## Exercise 1: CMF Web UI in Confluent Control Center
 1. Create an environment using the default namespace.
-[!Create a new environment]("resources/New Environment.png" "New Environment")
+![Create a new environment](resources/New Environment.png)
 3. Create an application in this environment.
 - Click `create an application`
 - Click the link to the docs and copy the deployment spec for the sample application
