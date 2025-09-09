@@ -79,7 +79,7 @@ helm upgrade --install cmf \
 confluentinc/confluent-manager-for-apache-flink --set cmf.sql.examples-catalog.enabled=true --set cmf.production=false
 ```
 
-In a few minutes, Confluent Control Center should be happy with Flink. (TODO: confirm that you don't need to restart C3)
+In a few minutes, Confluent Control Center should be happy with Flink.
 
 ### Part 3: Create some Kafka topics
 
@@ -90,11 +90,13 @@ Create Kafka Topics for the rest of the exercise. We want to register schema for
 
 ## Exercise 1: CMF Web UI in Confluent Control Center
 1. Create an environment using the default namespace.
-2. Create an application in this environment.
+[!Create a new environment]("resources/New Environment.png" "New Environment")
+3. Create an application in this environment.
 - Click `create an application`
 - Click the link to the docs and copy the deployment spec for the sample application
-3. Browse through the application instances (there's only one), events, and Apache Flink web UI for this application (TODO screenshots)
-4. Edit the deployment specification (TODO: precise edit, but anything works) and re-deploy the application.
+3. Browse through the application instances (there's only one), events, and Apache Flink web UI for this application
+  
+4. Edit the deployment specification and re-deploy the application.
 - Now see a new application instance
 
 ## Exercise 2: Confluent CLI for CP-Flink
